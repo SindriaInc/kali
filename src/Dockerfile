@@ -23,8 +23,7 @@ RUN apt update && \
     apt update && \
     apt upgrade -y && \
     apt dist-upgrade -y && \
-    apt install -y vim wget curl git screen openssh-server cron supervisor && \
-    rm -rf /var/lib/apt/lists/*
+    apt install -y vim wget curl git screen openssh-server cron supervisor
 
 # Install pentesting tools
 RUN apt update && \
