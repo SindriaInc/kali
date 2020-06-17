@@ -17,11 +17,15 @@ ENV SINDRIA_USER="hackerino"
 ENV SINDRIA_USER_HOME="/home/hackerino"
 ENV DEFAULT_SINDRIA_USER_PASSWORD="hackerino"
 
-# Install base software and all pentesting tools
+# Install base software and settings
 RUN apt update && \
     echo "deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list && \
     apt update && \
     apt install -y vim wget curl git screen openssh-server cron supervisor && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install all pentesting tools
+RUN apt update && \
     apt install -y kali-linux-everything && \
     rm -rf /var/lib/apt/lists/*
 
