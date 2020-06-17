@@ -21,13 +21,13 @@ ENV DEFAULT_SINDRIA_USER_PASSWORD="hackerino"
 RUN apt update && \
     echo "deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list && \
     apt update && \
-    apt install -y vim wget curl git screen openssh-server cron supervisor && \
-    rm -rf /var/lib/apt/lists/*
+    apt upgrade -y && \
+    apt dist-upgrade -y && \
+    apt install -y vim wget curl git screen openssh-server cron supervisor
 
 # Install all pentesting tools
 RUN apt update && \
-    apt install -y kali-linux-everything && \
-    rm -rf /var/lib/apt/lists/*
+    apt install -y kali-linux-everything
 
 # Adding sindria user
 RUN useradd ${SINDRIA_USER} -u ${HOST_USER_UID} -d ${SINDRIA_USER_HOME} -s /bin/bash && \
