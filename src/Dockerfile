@@ -23,11 +23,13 @@ RUN apt update && \
     apt update && \
     apt upgrade -y && \
     apt dist-upgrade -y && \
-    apt install -y vim wget curl git screen openssh-server cron supervisor
+    apt install -y vim wget curl git screen openssh-server cron supervisor && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install all pentesting tools
+# Install pentesting tools
 RUN apt update && \
-    apt install -y kali-linux-everything
+    apt install -y kali-linux-default && \
+    rm -rf /var/lib/apt/lists/*
 
 # Adding sindria user
 RUN useradd ${SINDRIA_USER} -u ${HOST_USER_UID} -d ${SINDRIA_USER_HOME} -s /bin/bash && \
