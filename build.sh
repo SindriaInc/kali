@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ -z "$1" ]]; then
-    echo "Provide user UID"
+    echo "Provide an image name as first argument (eg. sindriainc/<repo-slug>)"
     exit 1
 fi
 
@@ -10,15 +10,11 @@ if [[ -z "$2" ]]; then
     exit 1
 fi
 
-if [[ -z "$3" ]]; then
-    echo "Provide an image name as third argument (eg. registry.sindria.org/image-namespace/image-name)"
-    exit 1
-fi
 
-
-HOST_USER_UID=$1
+IMAGE_NAME=$1
 TAG_VERSION=$2
-IMAGE_NAME=$3
+
+HOST_USER_UID=1000
 TIMEZONE=Europe/Rome
 
 docker build ./src \

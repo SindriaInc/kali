@@ -5,7 +5,7 @@ ARG HOST_USER_UID
 ARG TIMEZONE
 
 LABEL \
-	name="registry.sindria.org/security/kali" \
+	name="sindriainc/kali" \
 	image="kali" \
 	tag="${TAG_VERSION}" \
 	vendor="sindria"
