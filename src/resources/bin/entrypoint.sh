@@ -12,3 +12,6 @@ fi
 if [ "${HOST_USER_UID}" != "1000" ]; then
     usermod -u ${HOST_USER_UID} ${SINDRIA_USER} && groupmod ${SINDRIA_USER} -g ${HOST_USER_UID}
 fi
+
+
+#tail -f /dev/null

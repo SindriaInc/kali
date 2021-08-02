@@ -51,6 +51,19 @@ RUN cd /opt && \
     ln -s /opt/sublister/sublister.sh /usr/local/bin/sublister && \
     rm -Rf /opt/Sublist3r/.git
 
+# Install xmlrpc brute
+COPY resources/scripts/xmlrpc-brute-v1.sh /opt/xmlrpc-brute/xmlrpc-brute-v1.sh
+COPY resources/scripts/xmlrpc-brute-v2.sh /opt/xmlrpc-brute/xmlrpc-brute-v2.sh
+RUN cd /opt && \
+    git clone https://github.com/1N3/Wordpress-XMLRPC-Brute-Force-Exploit.git && \
+    cd Wordpress-XMLRPC-Brute-Force-Exploit && \
+    pip install -r requirements.txt && \
+    chmod +x /opt/xmlrpc-brute/xmlrpc-brute-v1.sh && \
+    chmod +x /opt/xmlrpc-brute/xmlrpc-brute-v2.sh && \
+    ln -s /opt/xmlrpc-brute/xmlrpc-brute-v1.sh /usr/local/bin/xmlrpc-brute-v1 && \
+    ln -s /opt/xmlrpc-brute/xmlrpc-brute-v2.sh /usr/local/bin/xmlrpc-brute-v2 && \
+    rm -Rf /opt/Wordpress-XMLRPC-Brute-Force-Exploit/.git
+
 SHELL ["/bin/bash", "-c"]
 
 # Add and setup entrypont
