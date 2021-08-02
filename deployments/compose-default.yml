@@ -8,15 +8,15 @@ services:
     hostname: "${APP_NAME}"
     networks:
       default:
-        ipv4_address: "${SINDRIADOCK_APP_IP_ADDRESS}"
+        ipv4_address: "${APP_IP_ADDRESS}"
         aliases:
           - "${APP_NAME}"
 
 # =networks
-networks:        
+networks:
   default:
     name: "vpc_${APP_NAME}"
     driver: bridge
     ipam:
       config:
-        - subnet: ${SINDRIADOCK_NETWORK_SUBNET}
+        - subnet: ${NETWORK_SUBNET}
