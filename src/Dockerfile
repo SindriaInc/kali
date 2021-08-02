@@ -42,7 +42,7 @@ RUN useradd ${SINDRIA_USER} -u ${HOST_USER_UID} -d ${SINDRIA_USER_HOME} -s /bin/
 WORKDIR /var/www/app
 
 # Install sublister
-COPY resources/scripts/sublister.sh /opt/sublister
+COPY resources/scripts/sublister.sh /opt/sublister/sublister.sh
 RUN cd /opt && \
     git clone https://github.com/aboul3la/Sublist3r.git && \
     cd Sublist3r && \
