@@ -5,6 +5,9 @@ services:
   app:
     image: "sindriainc/kali:${KALI_TAG}"
     container_name: "${APP_NAME}"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "data:/var/www/app"
     entrypoint: []
     hostname: "${APP_NAME}"
     network_mode: "host"
@@ -17,7 +20,7 @@ services:
     #      - "${APP_NAME}"
 
 # =networks
-#networks:        
+#networks:
 #  default:
 #    name: "vpc_${APP_NAME}"
 #    driver: bridge
@@ -29,3 +32,7 @@ services:
 #networks:
 #  vpc_<app-name>:
 #    external: true
+
+# =volumes
+volumes:
+  data:
