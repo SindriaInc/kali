@@ -35,16 +35,20 @@ RUN useradd ${SINDRIA_USER} -u ${HOST_USER_UID} -d ${SINDRIA_USER_HOME} -s /bin/
     groupmod ${SINDRIA_USER} -g ${HOST_USER_UID} && \
     mkdir -p ${SINDRIA_USER_HOME}/bin/installers && \
     mkdir -p ${SINDRIA_USER_HOME}/config && \
-    mkdir -p /var/www/app
+    mkdir -p /var/www/app && \
+    chmod -R 755 /var/www/app && \
+    chown -R ${SINDRIA_USER}:${SINDRIA_USER} /var/www/app
 
 WORKDIR /var/www/app
 
 # Install sublister
+COPY resources/scripts/sublister.sh /opt/sublister
 RUN cd /opt && \
     git clone https://github.com/aboul3la/Sublist3r.git && \
     cd Sublist3r && \
     pip install -r requirements.txt && \
-    ln -s /opt/Sublist3r/sublist3r.py /usr/local/bin/sublister && \
+    chmod +x /opt/sublister/sublister.sh && \
+    ln -s /opt/sublister/sublister.sh /usr/local/bin/sublister && \
     rm -Rf /opt/Sublist3r/.git
 
 SHELL ["/bin/bash", "-c"]
