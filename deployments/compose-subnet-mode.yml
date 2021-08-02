@@ -3,9 +3,12 @@ version: '3.7'
 services:
   # =app
   app:
-    image: "kalilinux/kali-rolling:latest"
+    image: "sindriainc/kali:${KALI_TAG}"
     container_name: "${APP_NAME}"
     hostname: "${APP_NAME}"
+    #network_mode: "host"
+    cap_add:
+      - NET_ADMIN
     networks:
       default:
         ipv4_address: "${APP_IP_ADDRESS}"
@@ -20,3 +23,8 @@ networks:
     ipam:
       config:
         - subnet: ${NETWORK_SUBNET}
+
+# =networks
+#networks:
+#  vpc_<app-name>:
+#    external: true

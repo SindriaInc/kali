@@ -16,7 +16,7 @@ services:
     #      - "${APP_NAME}"
 
 # =networks
-#networks:        
+#networks:
 #  default:
 #    name: "vpc_${APP_NAME}"
 #    driver: bridge
