@@ -5,6 +5,7 @@ services:
   app:
     image: "sindriainc/kali:${KALI_TAG}"
     container_name: "${APP_NAME}"
+    entrypoint: []
     hostname: "${APP_NAME}"
     #network_mode: "host"
     cap_add:
