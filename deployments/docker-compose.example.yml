@@ -29,3 +29,7 @@ services:
 #networks:
 #  vpc_<app-name>:
 #    external: true
+
+# =volumes
+volumes:
+  data:
