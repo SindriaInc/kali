@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
-# Override cron.d configuration
-if [ -e /home/hackerino/config/cron.d/app ]; then
-    cp /home/hackerino/config/cron.d/app /etc/cron.d/
-fi
-
 # Fix permission
-chown root:root /etc/cron.d/*
-chmod 644 /etc/cron.d/*
 chown -R hackerino:hackerino /var/www/app
 
 # Override timezone by env
@@ -24,5 +17,3 @@ fi
 if [ "$DEFAULT_SINDRIA_USER_PASSWORD" != "hackerino" ]; then
     echo "${DEFAULT_SINDRIA_USER_PASSWORD}:hackerino" | chpasswd
 fi
-
-/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf

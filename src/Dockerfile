@@ -15,7 +15,6 @@ ENV HOST_USER_UID ${HOST_USER_UID}
 ENV TZ=${TIMEZONE}
 ENV SINDRIA_USER="hackerino"
 ENV SINDRIA_USER_HOME="/home/hackerino"
-ENV DEFAULT_SINDRIA_USER_PASSWORD="hackerino"
 
 # Install base software and settings
 RUN apt update && \
@@ -23,9 +22,9 @@ RUN apt update && \
     apt update && \
     apt upgrade -y && \
     apt dist-upgrade -y && \
-    apt install -y vim wget curl git screen openssh-server cron supervisor
+    apt install -y vim wget curl git screen sudo
 
-# Install pentesting tools
+# Install base pentesting tools
 RUN apt update && \
     apt install -y kali-linux-default && \
     rm -rf /var/lib/apt/lists/*
@@ -37,30 +36,25 @@ RUN useradd ${SINDRIA_USER} -u ${HOST_USER_UID} -d ${SINDRIA_USER_HOME} -s /bin/
     mkdir -p ${SINDRIA_USER_HOME}/config && \
     mkdir -p /var/www/app
 
-# SSH configuration
-COPY resources/ssh/sshd_config /etc/ssh/sshd_config
-RUN mkdir -p /run/sshd && \
-    ln -s /var/www/app ${SINDRIA_USER_HOME}/app && \
-    chmod 751 /home && \
-    chmod 751 /var && \
-    mkdir -p ${SINDRIA_USER_HOME}/.ssh && \
-    touch ${SINDRIA_USER_HOME}/.ssh/authorized_keys && \
-    chmod 700 ${SINDRIA_USER_HOME}/.ssh && \
-    chmod 600 ${SINDRIA_USER_HOME}/.ssh/* && \
-    chown -R ${SINDRIA_USER}:${SINDRIA_USER} ${SINDRIA_USER_HOME} && \
-    echo "${DEFAULT_SINDRIA_USER_PASSWORD}:${SINDRIA_USER}" | chpasswd && \
-    chown -R ${SINDRIA_USER}:${SINDRIA_USER} /var/www/app
-
-# Supervisor configuration
-COPY resources/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-COPY resources/supervisor/conf.d/*.conf /etc/supervisor/conf.d/
-
 WORKDIR /var/www/app
+
+# Install python
+RUN apt install -y python3-pip
+
+# Install sublister
+RUN cd /opt && \
+    git clone https://github.com/aboul3la/Sublist3r.git && \
+    cd Sublist3r && \
+    pip install -r requirements.txt && \
+    ln -s /opt/Sublist3r/sublist3r.py /usr/local/bin/sublister && \
+    rm -Rf /opt/Sublist3r/.git
 
 SHELL ["/bin/bash", "-c"]
 
-# Add and execute startup command
-COPY startup.sh /startup.sh
-CMD ["/bin/bash", "/startup.sh"]
+# Add and setup entrypont
+COPY resources/bin/entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
-EXPOSE 80 443 22 4444
+CMD ["tail", "-f", "/dev/null"]
+
+EXPOSE 80 443 4444
