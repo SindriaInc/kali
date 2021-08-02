@@ -22,6 +22,7 @@ RUN apt update && \
     apt update && \
     apt upgrade -y && \
     apt dist-upgrade -y && \
+    apt install -y python3-pip && \
     apt install -y vim wget curl git screen sudo
 
 # Install base pentesting tools
@@ -37,9 +38,6 @@ RUN useradd ${SINDRIA_USER} -u ${HOST_USER_UID} -d ${SINDRIA_USER_HOME} -s /bin/
     mkdir -p /var/www/app
 
 WORKDIR /var/www/app
-
-# Install python
-RUN apt install -y python3-pip
 
 # Install sublister
 RUN cd /opt && \
