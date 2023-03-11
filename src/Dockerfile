@@ -23,7 +23,7 @@ RUN apt update && \
     apt upgrade -y && \
     apt dist-upgrade -y && \
     apt install -y python3-pip && \
-    apt install -y vim wget curl git screen sudo
+    apt install -y vim wget curl git screen sudo telnet iputils-ping
 
 # Install base pentesting tools
 RUN apt update && \
@@ -63,6 +63,12 @@ RUN cd /opt && \
     ln -s /opt/xmlrpc-brute/xmlrpc-brute-v1.sh /usr/local/bin/xmlrpc-brute-v1 && \
     ln -s /opt/xmlrpc-brute/xmlrpc-brute-v2.sh /usr/local/bin/xmlrpc-brute-v2 && \
     rm -Rf /opt/Wordpress-XMLRPC-Brute-Force-Exploit/.git
+
+# Install seclists
+RUN git clone https://github.com/danielmiessler/SecLists.git /opt/SecLists && \
+    rm -Rf /opt/SecLists/.git && \
+    apt install -y seclists && \
+    rm -rf /var/lib/apt/lists/* 
 
 SHELL ["/bin/bash", "-c"]
 
