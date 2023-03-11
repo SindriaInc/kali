@@ -66,9 +66,9 @@ RUN cd /opt && \
 
 # Install seclists
 RUN git clone https://github.com/danielmiessler/SecLists.git /opt/SecLists && \
-    rm -Rf /opt/SecLists/.git && \
-    apt install -y seclists && \
-    rm -rf /var/lib/apt/lists/* 
+    rm -Rf /opt/SecLists/.git
+    #apt install -y seclists && \
+    #rm -rf /var/lib/apt/lists/* 
 
 SHELL ["/bin/bash", "-c"]
 
